@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share File</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Share File</h2>
+        <p>File URL: <a href="{{ file_url }}" target="_blank">{{ file_url }}</a></p>
+        <form action="/share" method="post">
+            <input type="hidden" name="file_url" value="{{ file_url }}">
+            <input type="email" name="email" placeholder="Recipient Email" required>
+            <button type="submit">Share</button>
+        </form>
+    </div>
+</body>
+</html>

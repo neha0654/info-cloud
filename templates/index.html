@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Storage Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .file-list { margin: 20px 0; }
+        .file-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .file-item span { flex: 1; }
+        button { padding: 5px 10px; background-color: #007BFF; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .logout { background-color: #FF4D4D; }
+        .logout:hover { background-color: #D43F3F; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ username }}</h2>
+        <p>Your cloud storage files are listed below:</p>
+        
+        <div class="file-list">
+            {% if files %}
+                {% for file in files %}
+                <div class="file-item">
+                    <span>{{ file }}</span>
+                    <form action="/share" method="post" style="display: inline;">
+                        <input type="hidden" name="file_url" value="{{ s3_url }}/{{ file }}">
+                        <input type="email" name="email" placeholder="Recipient Email" required>
+                        <button type="submit">Share</button>
+                    </form>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No files found in your cloud storage.</p>
+            {% endif %}
+        </div>
+        
+        <form action="/logout" method="post">
+            <button type="submit" class="logout">Logout</button>
+        </form>
+    </div>
+</body>
+</html>
